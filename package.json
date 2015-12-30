@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
-    "android": "react-native run-android"
+    "android": "react-native run-android",
+    "develop-android": "nodemon --watch index.android.js ./node_modules/.bin/react-native run-android"
   },
   "dependencies": {
     "react-native": "^0.17.0"
   },
   "devDependencies": {
+    "nodemon": "1.8.1",
     "react-native-cli": "0.1.7"
   }
 }
