@@ -1,0 +1,15 @@
+{
+  "name": "HelloWorldAndroid",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android"
+  },
+  "dependencies": {
+    "react-native": "^0.17.0"
+  },
+  "devDependencies": {
+    "react-native-cli": "0.1.7"
+  }
+}
