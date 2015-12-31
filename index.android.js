@@ -7,6 +7,7 @@
 var React = require('react-native');
 var {
   AppRegistry,
+  ListView,
   StyleSheet,
   Text,
   View,
@@ -17,7 +18,10 @@ var {
 var HelloWorldAndroid = React.createClass({
   getInitialState: function() {
     return {
-      movies: null
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2
+      }),
+      loaded: false
     };
   },
   componentDidMount: function() {
@@ -30,18 +34,26 @@ var HelloWorldAndroid = React.createClass({
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
-          movies: responseData.movies
+          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
+          loaded: true
         });
       });
   },
   render: function() {
+    var styles = HelloWorldAndroid.styles;
     var movies = this.state.movies;
 
-    if (!movies) {
+    if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
-    return this.renderMovie(movies[0]);
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderMovie}
+        style={styles.listView}
+      />
+    );
   },
   renderLoadingView: function() {
     var styles = HelloWorldAndroid.styles;
@@ -72,6 +84,10 @@ var HelloWorldAndroid = React.createClass({
 
 
 HelloWorldAndroid.styles = StyleSheet.create({
+  listView: {
+    paddingTop: 20,
+    backgroundColor: '#F5FCFF'
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
