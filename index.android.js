@@ -5,11 +5,11 @@
 'use strict';
 
 var MOCKED_MOVIES_DATA = [{
-    title: 'Title',
-    year: '2015',
-    posters: {
-        thumbnail: 'http://i.imgur.com/UePbdph.jpg'
-    }
+  title: 'Title',
+  year: '2015',
+  posters: {
+    thumbnail: 'http://i.imgur.com/UePbdph.jpg'
+  }
 }];
 
 var React = require('react-native');
@@ -26,12 +26,12 @@ var HelloWorldAndroid = React.createClass({
     var movie = MOCKED_MOVIES_DATA[0];
 
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
         <Text style={styles.welcome}>{movie.title}</Text>
         <Text style={styles.instructions}>{movie.year}</Text>
         <Image style={styles.thumbnail} source={{uri: movie.posters.thumbnail}} />
-      </View>
-    );
+        </View>
+        );
   }
 });
 

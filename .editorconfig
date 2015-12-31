@@ -1,0 +1,10 @@
+root = true
+
+[**.js]
+indent_style = space
+indent_size = 2
+e4x = true
+
+[**.json]
+indent_style = space
+indent_size = 2
