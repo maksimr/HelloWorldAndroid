@@ -28,9 +28,12 @@ var HelloWorldAndroid = React.createClass({
 
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>{movie.title}</Text>
-        <Text style={styles.instructions}>{movie.year}</Text>
         <Image style={styles.thumbnail} source={{uri: movie.posters.thumbnail}}/>
+
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.year}>{movie.year}</Text>
+        </View>
       </View>
     );
   }
@@ -39,19 +42,21 @@ var HelloWorldAndroid = React.createClass({
 HelloWorldAndroid.styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
+  rightContainer: {
+    flex: 1
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
+  title: {
+    fontSize: 20,
+    marginBottom: 8,
+    textAlign: 'center'
+  },
+  year: {
+    textAlign: 'center'
   },
   thumbnail: {
     width: 53,
