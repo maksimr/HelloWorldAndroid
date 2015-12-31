@@ -19,3 +19,17 @@ npm start
 npm run emulator-android
 npm run develop-android
 ```
+
+
+## Android
+
+```sh
+android update sdk --no-ui -t \
+tools,\
+platform-tool,\
+build-tools-21.0.1,\
+extra-android-support,\
+extra-android-m2repository,\
+sys-img-x86-android-23,\
+sys-img-x86_64-android-23
+```
