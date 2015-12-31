@@ -4,14 +4,6 @@
  */
 'use strict';
 
-var MOCKED_MOVIES_DATA = [{
-  title: 'Title',
-  year: '2015',
-  posters: {
-    thumbnail: 'http://i.imgur.com/UePbdph.jpg'
-  }
-}];
-
 var React = require('react-native');
 var {
   AppRegistry,
@@ -21,10 +13,49 @@ var {
   Image
   } = React;
 
+
 var HelloWorldAndroid = React.createClass({
+  getInitialState: function() {
+    return {
+      movies: null
+    };
+  },
+  componentDidMount: function() {
+    this.fetchData();
+  },
+  fetchData: function() {
+    var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
+
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          movies: responseData.movies
+        });
+      });
+  },
   render: function() {
+    var movies = this.state.movies;
+
+    if (!movies) {
+      return this.renderLoadingView();
+    }
+
+    return this.renderMovie(movies[0]);
+  },
+  renderLoadingView: function() {
     var styles = HelloWorldAndroid.styles;
-    var movie = MOCKED_MOVIES_DATA[0];
+
+    return (
+      <View style={styles.container}>
+        <Text>
+          Loading movies...
+        </Text>
+      </View>
+    );
+  },
+  renderMovie: function(movie) {
+    var styles = HelloWorldAndroid.styles;
 
     return (
       <View style={styles.container}>
@@ -38,6 +69,7 @@ var HelloWorldAndroid = React.createClass({
     );
   }
 });
+
 
 HelloWorldAndroid.styles = StyleSheet.create({
   container: {
