@@ -4,17 +4,20 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
-
     "android": "react-native run-android",
     "develop-android": "nodemon --watch index.android.js ./node_modules/.bin/react-native run-android",
     "emulator-android": "emulator -avd HelloWorldAndroid -scale 0.4 -gpu on -memory 2048",
     "emulator-create-android": "android create avd -n HelloWorldAndroid -t 1 -b x86 --skin 1080x1920 --device 'Nexus 5'",
-    "emulator-delete-android": "android delete avd -n HelloWorldAndroid"
+    "emulator-delete-android": "android delete avd -n HelloWorldAndroid",
+    "lint": "eslint '**/*.js' --quiet=true"
   },
   "dependencies": {
     "react-native": "^0.17.0"
   },
   "devDependencies": {
+    "babel-eslint": "4.1.6",
+    "eslint": "1.10.3",
+    "eslint-plugin-react": "3.13.1",
     "nodemon": "1.8.1",
     "react-native-cli": "0.1.7"
   }
