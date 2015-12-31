@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start",
-    "android": "react-native run-android",
-    "develop-android": "nodemon --watch index.android.js ./node_modules/.bin/react-native run-android",
+    "start": "./node_modules/react-native-cli/index.js start",
+    "android": "./node_modules/react-native-cli/index.js run-android",
+    "develop-android": "nodemon --watch index.android.js ./node_modules/react-native-cli/index.js run-android",
     "emulator-android": "emulator -avd HelloWorldAndroid -scale 0.4 -gpu on -memory 2048",
     "emulator-create-android": "android create avd -n HelloWorldAndroid -t 1 -b x86 --skin 1080x1920 --device 'Nexus 5'",
     "emulator-delete-android": "android delete avd -n HelloWorldAndroid",
