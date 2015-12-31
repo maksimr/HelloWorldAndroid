@@ -19,6 +19,7 @@
     "eslint": "1.10.3",
     "eslint-plugin-react": "3.13.1",
     "nodemon": "1.8.1",
-    "react-native-cli": "0.1.7"
+    "react-native-cli": "0.1.7",
+    "react-native-infinite-scroll-view": "0.2.3"
   }
 }
