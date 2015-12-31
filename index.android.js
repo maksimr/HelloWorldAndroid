@@ -4,27 +4,32 @@
  */
 'use strict';
 
+var MOCKED_MOVIES_DATA = [{
+    title: 'Title',
+    year: '2015',
+    posters: {
+        thumbnail: 'http://i.imgur.com/UePbdph.jpg'
+    }
+}];
+
 var React = require('react-native');
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
+  Image,
 } = React;
 
 var HelloWorldAndroid = React.createClass({
   render: function() {
+    var movie = MOCKED_MOVIES_DATA[0];
+
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <Text style={styles.welcome}>{movie.title}</Text>
+        <Text style={styles.instructions}>{movie.year}</Text>
+        <Image style={styles.thumbnail} source={{uri: movie.posters.thumbnail}} />
       </View>
     );
   }
@@ -46,6 +51,10 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  thumbnail: {
+    width: 53,
+    height: 81,
   },
 });
 
