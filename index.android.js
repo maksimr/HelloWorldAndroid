@@ -5,127 +5,77 @@
 'use strict';
 
 var React = require('react-native');
-var InfiniteScrollView = require('react-native-infinite-scroll-view');
 var {
   AppRegistry,
-  ListView,
-  StyleSheet,
-  Text,
+  Navigator,
   View,
-  Image
+  Text
   } = React;
 
 
 var HelloWorldAndroid = React.createClass({
-  getInitialState: function() {
-    return {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2
-      }),
-      countMovies: 0,
-      loaded: false
-    };
-  },
-  componentDidMount: function() {
-    this.fetchData();
-  },
-  fetchData: function() {
-    var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
-    var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json';
-    var PAGE_SIZE = this.state.countMovies + 15;
-    var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
-    var REQUEST_URL = API_URL + PARAMS;
-
-    return fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
-          countMovies: PAGE_SIZE,
-          totalMovies: responseData.total,
-          loaded: true
-        });
-      });
-  },
-  onLoadMore: function() {
-    return this.fetchData();
-  },
-  canLoadMore: function() {
-    return this.state.totalMovies > this.state.countMovies;
-  },
   render: function() {
-    var styles = HelloWorldAndroid.styles;
-    var movies = this.state.movies;
-
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
+    let initialRoute = {
+      name: 'First Page',
+      index: 0
+    };
 
     return (
-      <ListView
-        renderScrollComponent={props => <InfiniteScrollView {...props} />}
-        onLoadMoreAsync={this.onLoadMore}
-        canLoadMore={this.canLoadMore()}
-        dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
-        style={styles.listView}
+      <Navigator
+        initialRoute={initialRoute}
+        renderScene={this.renderScene}
       />
     );
   },
-  renderLoadingView: function() {
-    var styles = HelloWorldAndroid.styles;
-
+  renderScene: function(route, navigator) {
     return (
-      <View style={styles.container}>
-        <Text>
-          Loading movies...
+      <View style={{flexDirection: 'row', padding: 20}}>
+        {this.renderBackButton(route, navigator)}
+
+        <Text style={{flex: 1, textAlign: 'center'}}>
+          {route.name} - {route.index}
         </Text>
+
+        {this.renderForwardButton(route, navigator)}
       </View>
     );
   },
-  renderMovie: function(movie) {
-    var styles = HelloWorldAndroid.styles;
+  renderBackButton: function(route, navigator) {
+    let onBack = function() {
+      if (route.index > 0) {
+        navigator.pop();
+      }
+    };
+
+    if (!route.index) {
+      return (
+        <Text>
+        </Text>
+      );
+    }
 
     return (
-      <View style={styles.container}>
-        <Image style={styles.thumbnail} source={{uri: movie.posters.thumbnail}}/>
-
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>{movie.title}</Text>
-          <Text style={styles.year}>{movie.year}</Text>
-        </View>
-      </View>
+      <Text onPress={onBack}
+            style={{backgroundColor: 'blue', color: 'white'}}>
+        Back
+      </Text>
     );
-  }
-});
+  },
+  renderForwardButton: function(route, navigator) {
+    let nextIndex = route.index + 1;
+    let onForward = function() {
+      navigator.push({
+        name: 'Page ' + nextIndex,
+        index: nextIndex
+      });
+    };
 
-
-HelloWorldAndroid.styles = StyleSheet.create({
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF'
-  },
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  rightContainer: {
-    flex: 1
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center'
-  },
-  year: {
-    textAlign: 'center'
-  },
-  thumbnail: {
-    width: 53,
-    height: 81
+    return (
+      <Text onPress={onForward}
+            style={{backgroundColor: 'green', color: 'white'}}>
+        Next
+      </Text>
+    );
   }
 });
 
