@@ -33,3 +33,8 @@ extra-android-m2repository,\
 sys-img-x86-android-23,\
 sys-img-x86_64-android-23
 ```
+
+## Debugging
+
+Official [documentation](https://facebook.github.io/react-native/docs/debugging.html)
+F2 open debug menu for android emulator
