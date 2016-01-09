@@ -57,11 +57,19 @@ var MovieListView = React.createClass({
         <Image style={MovieListStyle.thumbnail} source={{uri: movie.posters.thumbnail}}/>
 
         <View style={MovieListStyle.rightContainer}>
-          <Text style={MovieListStyle.title}>{movie.title}</Text>
+          <Text style={MovieListStyle.title} onPress={this.onPress.bind(this, movie)}>
+            {movie.title}
+          </Text>
           <Text style={MovieListStyle.year}>{movie.year}</Text>
         </View>
       </View>
     );
+  },
+  onPress: function(movie) {
+    this.props.navigator.push({
+      location: 'movie',
+      data: movie
+    });
   }
 });
 
