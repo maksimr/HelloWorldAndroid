@@ -1,5 +1,6 @@
 var React = require('react-native');
 var MovieListStyle = require('./MovieListView.style');
+var MovieStore = require('../../stores/MovieStore');
 var {
   ListView,
   Text,
@@ -21,16 +22,12 @@ var MovieListView = React.createClass({
     this.fetchData();
   },
   fetchData: function() {
-    var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
-
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
-          loaded: true
-        });
+    return MovieStore.getAll().then((responseData) => {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
+        loaded: true
       });
+    });
   },
   render: function() {
     if (!this.state.loaded) {
